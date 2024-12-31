@@ -120,23 +120,24 @@
   <div id="portfolio" class="content">
     <h2><span class="highlight">My Work</span></h2>
     <ul class="portfolio-list">
-      <li class="portfolio-item">
-        <h3><span class="bold-uppercase">DEATH POINT</span></h3>
-        <img src="DeathPoint.webp" alt="Screenshot of Death Point game showing the glowing sphere in the haunted graveyard" class="game-image" loading="lazy" /><br>
-        <p>A gripping game where players control a glowing sphere navigating a haunted graveyard. The goal is to collect cursed skulls to unlock the path to victory. With deadly traps and spectral enemies at every turn, only those who gather enough skulls can escape the eerie graveyard. Death Point offers a challenging and atmospheric experience that keeps players on edge.</p>
-        <button class="video-button" data-video="videos/DeathPointVideo.mp4">🎮 Watch Video</button>
-      </li>
+    <li class="portfolio-item">
+      <h3><span class="bold-uppercase">DEATH POINT</span></h3>
+      <img src="DeathPoint.webp" alt="Screenshot of Death Point game showing the glowing sphere in the haunted graveyard" class="game-image" loading="lazy" /><br>
+      <p>A gripping game where players control a glowing sphere navigating a haunted graveyard. The goal is to collect cursed skulls to unlock the path to victory. With deadly traps and spectral enemies at every turn, only those who gather enough skulls can escape the eerie graveyard. Death Point offers a challenging and atmospheric experience that keeps players on edge.</p>
+      <button class="video-button" data-video="https://drive.google.com/file/d/1Fn6NJzXmGC2bwtcEDS_IIkaiEHv2ps0i/preview">🎮 Watch Video</button>
+    </li>
       <li class="portfolio-item">
         <h3><span class="bold-uppercase">DRONE BLITZ</span></h3>
         <img src="FPS.webp" alt="Screenshot of Drone Blitz game showing drones and urban battlefield" class="game-image" loading="lazy" /><br>
         <p>Drone Blitz is a high-intensity, single-level FPS set in a sprawling, abandoned city. Players must shoot down a swarm of hostile drones within a strict time limit, utilizing limited ammo and tactical positioning. The urban battlefield is littered with crumbling buildings, abandoned vehicles, and overgrown streets, demanding quick reflexes and sharp aim to survive. As each drone is destroyed, the action escalates, and the clock inches closer to zero. Easy to pick up but thrilling to master, Drone Blitz delivers an adrenaline-packed challenge for fans of fast-paced action.</p>
-        <button class="video-button" data-video="videos/DroneBlitzVideo.mp4">🎮 Watch Video</button>
+        <button class="video-button" data-video="https://drive.google.com/file/d/1plYoyt7_Zfja9xIRFD7-ZjbutGLjC6Or/preview">🎮 Watch Video</button>
+
       </li>
       <li class="portfolio-item">
         <h3><span class="bold-uppercase">SIDESCROLLER</span></h3>
         <img src="SideScroller.webp" alt="Screenshot of SideScroller game showing vibrant 2D platformer gameplay" class="game-image" loading="lazy" /><br>
         <p>A vibrant and energetic 2D platformer where players navigate forward and backward to collect coins while overcoming colorful obstacles. With its dynamic levels, engaging gameplay, and bright, immersive design, SideScroller delivers a fun-filled experience perfect for players of all ages.</p>
-        <button class="video-button" data-video="videos/SideScrollerVideo.mp4">🎮 Watch Video</button>
+        <button class="video-button" data-video="https://drive.google.com/file/d/1eQBIk3a6sm9KzvB5EljNDPwqEDY-bTrg/preview">🎮 Watch Video</button>
       </li>
       <li class="portfolio-item">
         <h3><span class="bold-uppercase">RISE OF VANARA</span></h3>
@@ -153,12 +154,13 @@
     </ul>
   </div>
 
-  <div id="video-modal" class="modal hidden">
-    <div class="modal-content">
-      <video id="video-player" controls></video>
-      <button class="close-button">✖ Close</button>
-    </div>
+<!-- Modal for video display -->
+<div id="video-modal" class="modal hidden">
+  <div class="modal-content">
+    <iframe id="video-player" frameborder="0" allow="autoplay; encrypted-media" src="" allowfullscreen></iframe>
+    <button class="close-button">✖</button>
   </div>
+</div>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -181,45 +183,44 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Modal Video Playback
+  // Video Modal
   const modal = document.getElementById("video-modal");
   const videoPlayer = document.getElementById("video-player");
   const closeButton = modal.querySelector(".close-button");
 
-  // Attach click events to all video buttons
+  // Open video modal
   document.querySelectorAll(".video-button").forEach(button => {
     button.addEventListener("click", () => {
       const videoSource = button.getAttribute("data-video");
       if (videoSource) {
-        videoPlayer.src = videoSource;
-        videoPlayer.play();
+        videoPlayer.src = videoSource;  // Set the video URL for iframe
         modal.classList.remove("hidden");
-        document.body.classList.add("modal-open");
-      } else {
-        console.error("Video source missing for the button");
+        modal.classList.add("open");
+        document.body.classList.add("modal-open");  // Prevent scrolling
       }
     });
   });
 
-  // Close modal behavior
+  // Close modal
   const closeModal = () => {
-    videoPlayer.pause();
-    videoPlayer.src = "";
+    videoPlayer.src = "";  // Reset iframe source to stop video
+    modal.classList.remove("open");
     modal.classList.add("hidden");
     document.body.classList.remove("modal-open");
   };
 
   closeButton.addEventListener("click", closeModal);
 
+  // Close modal if clicked outside of the modal content
   modal.addEventListener("click", event => {
     if (event.target === modal) closeModal();
   });
 
+  // Close modal with Escape key
   document.addEventListener("keydown", event => {
-    if (event.key === "Escape" && !modal.classList.contains("hidden")) closeModal();
+    if (event.key === "Escape" && modal.classList.contains("open")) closeModal();
   });
 });
-
 </script>
 
 </body>
